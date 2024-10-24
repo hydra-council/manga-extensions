@@ -170,10 +170,10 @@ def home_page(filter_books: Status = Status.POPULAR, page=1):
     return results
 
 
-if __name__ == '__main__':
-    # search_page('isekai')
-    # home_page(Status.LATEST)
-    # get_chapter_images('https://chapmanganato.to/manga-ri994991/chapter-11')
-
-    # get_book_metadata("https://chapmanganato.to/manga-ri994991/")
-    pass
+# if __name__ == '__main__':
+#     # search_page('isekai')
+#     # home_page(Status.LATEST)
+#     # get_chapter_images('https://chapmanganato.to/manga-ri994991/chapter-11')
+#
+#     # get_book_metadata("https://chapmanganato.to/manga-ri994991/")
+#     pass

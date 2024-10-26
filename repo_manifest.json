@@ -1,0 +1,9 @@
+{
+  "repoName": "Lyra official repo",
+  "repoUrl": "https://github.com/hydra-council/manga-extensions",
+  "jsonRepoUrl": "https://raw.githubusercontent.com/RA341/test_scripts/main/test_repo.json",
+  "version": "0.1.0",
+  "extensionsMetaDataUrls": [
+    "https://raw.githubusercontent.com/hydra-council/manga-extensions/refs/heads/main/manganato/manifest.py"
+  ]
+}

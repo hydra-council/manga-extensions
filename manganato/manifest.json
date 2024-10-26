@@ -1,0 +1,9 @@
+{
+  "name": "manganato",
+  "manifest_version": 1,
+  "version": "0.1.0",
+  "media_type": "manga",
+  "repoUrl": "https://github.com/hydra-council/manga-extensions/tree/main/manganato",
+  "scriptUrl": "https://raw.githubusercontent.com/hydra-council/manga-extensions/refs/heads/main/manganato/manganato.py",
+  "metaDataUrl": "https://raw.githubusercontent.com/hydra-council/manga-extensions/refs/heads/main/manganato/manifest.py"
+}

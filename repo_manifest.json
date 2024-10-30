@@ -5,6 +5,6 @@
   "version": "0.1.0",
   "manifest_version": 1,
   "extensionsMetaDataUrls": [
-    "https://raw.githubusercontent.com/hydra-council/manga-extensions/refs/heads/main/manganato/manifest.py"
+    "https://raw.githubusercontent.com/hydra-council/manga-extensions/refs/heads/main/manganato/manifest.json"
   ]
 }

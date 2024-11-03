@@ -28,23 +28,30 @@ def get_title(document: BeautifulSoup):
     return select.text.strip(), alt_select.text.strip().split(';')
 
 
-BOOK_STATUS_SELECTOR = 'body > div.body-site > div.container.container-main > div.container-main-left > div.panel-story-info > div.story-info-right > table > tbody > tr:nth-child(3) > td.table-value'
+METADATA_TABLE_SELECTOR = 'body > div.body-site > div.container.container-main > div.container-main-left > div.panel-story-info > div.story-info-right > table'
 
 
-def get_status(document: BeautifulSoup):
-    select = document.select_one(BOOK_STATUS_SELECTOR)
-    return select.text.strip()
+def get_metadata_table(document: BeautifulSoup):
+    table_items = document.select_one(METADATA_TABLE_SELECTOR).select('tr')
 
+    metadata = {
+        'status': '',
+        'genres': ''
+    }
 
-GENRE_SELECTOR = 'body > div.body-site > div.container.container-main > div.container-main-left > div.panel-story-info > div.story-info-right > table > tbody > tr:nth-child(4) > td.table-value'
+    for item in table_items:
+        key = item.select_one('td.table-label').text.strip()
 
+        for k, v in metadata.items():
+            if k in key.lower():
+                data = item.select_one('td.table-value')
+                tmp = data.text.strip().split('-')
+                if len(tmp) == 1:
+                    metadata[k] = tmp[0]
+                elif len(tmp) > 1:
+                    metadata[k] = [x.strip() for x in tmp]
 
-def get_genres(document: BeautifulSoup):
-    genres = []
-    select = document.select_one(GENRE_SELECTOR)
-    for genre in select.select('.a-h'):
-        genres.append(genre.text.strip())
-    return genres
+    return metadata
 
 
 DESCRIPTION_SELECTOR = '#panel-story-info-description'
@@ -78,8 +85,7 @@ def get_book_metadata(book_url):
 
     title, alt_title = get_title(soup)
     image = get_book_image(soup)
-    status = get_status(soup)
-    genres = get_genres(soup)
+    status = get_metadata_table(soup)
     description = get_description(soup)
     chapters = get_chapters(soup)
 
@@ -87,9 +93,9 @@ def get_book_metadata(book_url):
         'title': title,
         'alt_title': alt_title,
         'image': image,
-        'status': status,
-        'genres': genres,
-        'description': description,
+        'status': status['status'],
+        'genres': status['genres'],
+        'description': description.strip(),
         'chapters': chapters,
     }
 
@@ -171,8 +177,11 @@ def home_page(filter_books: Status = Status.POPULAR, page=1):
     results = parse_results_page(soup, 'content-genres-item')
     return results
 
-re = get_book_metadata("https://manganato.com/manga-jo987223")
-print(re)
+
+# re = get_book_metadata("https://manganato.com/manga-jo987223")
+# print(re)
+# re = get_book_metadata("https://manganato.com/manga-zw1003179")
+# print(re)
 # if __name__ == '__main__':
 #     # search_page('isekai')
 #     # home_page(Status.LATEST)

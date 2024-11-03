@@ -1,3 +1,5 @@
+from enum import Enum
+
 import requests
 from bs4 import BeautifulSoup
 
@@ -21,6 +23,8 @@ ALTERNATE_TITLE_SELECTOR = 'body > div.body-site > div.container.container-main 
 def get_title(document: BeautifulSoup):
     select = document.select_one(TITLE_SELECTOR)
     alt_select = document.select_one(ALTERNATE_TITLE_SELECTOR)
+    if alt_select is None:
+        return select.text.strip(), ''
     return select.text.strip(), alt_select.text.strip().split(';')
 
 
@@ -167,7 +171,8 @@ def home_page(filter_books: Status = Status.POPULAR, page=1):
     results = parse_results_page(soup, 'content-genres-item')
     return results
 
-
+re = get_book_metadata("https://manganato.com/manga-jo987223")
+print(re)
 # if __name__ == '__main__':
 #     # search_page('isekai')
 #     # home_page(Status.LATEST)
